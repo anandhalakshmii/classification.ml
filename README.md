@@ -22,7 +22,7 @@ Additionally, a Streamlit web application is developed and deployed to allow int
 ### Dataset Details
 
 * **Number of instances:** 1599
-* **Number of features:** 11 (all numerical)
+* **Number of features:** 12 (11 all numerical + 1 target)
 * **Original target variable:** `quality` (integer score from 3 to 8)
 
 ### Target Variable Transformation
@@ -69,27 +69,27 @@ For each model, the following evaluation metrics were calculated:
 
 | ML Model Name       | Accuracy | AUC      | Precision | Recall   | F1 Score | MCC      |
 | ------------------- | -------- | -------- | --------- | -------- | -------- | -------- |
-| Logistic Regression | 0.89     | 0.92     | 0.88      | 0.55     | 0.68     | 0.62     |
-| Decision Tree       | 0.90     | 0.88     | 0.75      | 0.75     | 0.75     | 0.71     |
-| KNN                 | 0.89     | 0.91     | 0.87      | 0.56     | 0.68     | 0.62     |
-| Naive Bayes         | 0.86     | 0.90     | 0.63      | 0.78     | 0.70     | 0.63     |
-| Random Forest       | **0.94** | **0.96** | **0.91**  | **0.77** | **0.83** | **0.80** |
-| XGBoost             | 0.94     | 0.95     | 0.92      | 0.73     | 0.81     | 0.79     |
+| Logistic Regression | 0.89     | 0.88     | 0.69      | 0.37     | 0.48     | 0.45     |
+| Decision Tree       | 0.90     | 0.80     | 0.61      | 0.67     | 0.64     | 0.59     |
+| KNN                 | 0.89     | 0.82     | 0.66      | 0.41     | 0.51     | 0.47     |
+| Naive Bayes         | 0.86     | 0.85     | 0.48      | 0.72     | 0.57     | 0.51     |
+| Random Forest       | **0.94** | **0.95** | **0.93**  | **0.62** | **0.75** | **0.74** |
+| XGBoost             | 0.94     | 0.94     | 0.87      | 0.65     | 0.74     | 0.72     |
 
-*(Exact values may vary slightly depending on random state.)*
 
 ---
 
 ## 6. Model Performance Observations
 
-| ML Model Name       | Observation about Model Performance                                                               |
-| ------------------- | ------------------------------------------------------------------------------------------------- |
-| Logistic Regression | Performs well overall but has lower recall due to linear decision boundaries and class imbalance. |
-| Decision Tree       | Captures non-linear patterns effectively but may slightly overfit on limited data.                |
-| KNN                 | Sensitive to feature scaling and neighborhood size; performs comparably to Logistic Regression.   |
-| Naive Bayes         | Shows good recall but lower precision due to independence assumptions between features.           |
-| Random Forest       | Achieves the best overall performance by balancing bias and variance through ensemble learning.   |
-| XGBoost             | Provides strong performance using gradient boosting, closely matching Random Forest results.      |
+| ML Model Name           | Observation about Model Performance                                                                                                                                    |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Logistic Regression** | Achieves good overall accuracy and AUC but exhibits low recall, indicating limitations in capturing complex non-linear relationships present in the wine quality data. |
+| **Decision Tree**       | Provides balanced precision and recall by effectively modeling non-linear feature interactions, though it may show slight overfitting tendencies.                      |
+| **KNN**                 | Performs comparably to Logistic Regression but shows moderate recall, reflecting sensitivity to feature scaling and overlapping class distributions.                   |
+| **Naive Bayes**         | Demonstrates relatively high recall but lower precision due to its strong independence assumptions, leading to over-prediction of high-quality wines.                  |
+| **Random Forest**       | Achieves the best overall performance with the highest accuracy, AUC, and MCC, benefiting from ensemble learning and strong generalization.                            |
+| **XGBoost**             | Delivers performance close to Random Forest by leveraging gradient boosting to capture complex non-linear patterns with high precision and recall.                     |
+
 
 ---
 
@@ -131,7 +131,7 @@ project-folder/
 |-- test_data
 |   |-- wine_test_data.csv
 │-- model/
-│   │-- Wine_Quality_Training.ipynb
+│   │-- trained_model.ipynb
 │   │-- logistic_model.pkl
 │   │-- decision_tree_model.pkl
 │   │-- knn_model.pkl
