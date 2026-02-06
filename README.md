@@ -1,7 +1,7 @@
 # classification.ml
 ---
 
-# 🍷 Wine Quality Classification – Machine Learning Assignment 2
+# 🍷 Wine Quality Classification – Machine Learning
 
 ---
 ## 1. Problem Statement
