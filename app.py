@@ -37,6 +37,12 @@ COLORS = {
     "text_light": "#7F8C8D"
 }
 
+# Material Design Icons CSS
+st.markdown("""
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+""", unsafe_allow_html=True)
+
 # Enhanced Custom CSS
 st.markdown(f"""
     <style>
@@ -45,6 +51,25 @@ st.markdown(f"""
         padding: 0;
         box-sizing: border-box;
     }}
+    
+    .material-icons {{
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+    }}
+    
+    .material-icons.md-18 {{ font-size: 18px; }}
+    .material-icons.md-24 {{ font-size: 24px; }}
+    .material-icons.md-36 {{ font-size: 36px; }}
+    .material-icons.md-48 {{ font-size: 48px; }}
     
     html, body, .main {{
         background: {COLORS['light_gray']} !important;
@@ -144,6 +169,13 @@ st.markdown(f"""
         font-size: 3.5rem;
         margin-bottom: 15px;
         line-height: 1;
+        color: {COLORS['cherry_rose']};
+    }}.icon-large {{
+        font-size: 4rem;
+        color: {COLORS['cherry_rose']};
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }}
     
     .card-title {{
@@ -369,6 +401,56 @@ st.markdown(f"""
         background: {COLORS['white']};
     }}
     
+    .stSelectbox > div > div {{
+        background: {COLORS['white']} !important;
+        border: 2px solid {COLORS['pastel_pink']} !important;
+        border-radius: 8px !important;
+    }}
+    
+    .stSelectbox > div > div > div {{
+        color: {COLORS['night_bordeaux']} !important;
+        font-weight: 700;
+    }}
+    
+    .stSelectbox [data-baseweb="select"] {{
+        background-color: {COLORS['white']} !important;
+    }}
+    
+    .stSelectbox [data-baseweb="select"] input {{
+        color: {COLORS['night_bordeaux']} !important;
+        background-color: {COLORS['white']} !important;
+        font-weight: 700;
+    }}
+    
+    .stSelectbox [data-baseweb="select"] > div {{
+        color: {COLORS['night_bordeaux']} !important;
+        background-color: {COLORS['white']} !important;
+    }}
+    
+    [data-baseweb="menu"] {{
+        background-color: {COLORS['white']} !important;
+    }}
+    
+    [data-baseweb="menu"] li {{
+        color: {COLORS['night_bordeaux']} !important;
+        background-color: {COLORS['white']} !important;
+    }}
+    
+    [data-baseweb="menu"] li:hover {{
+        background-color: {COLORS['lavender_blush']} !important;
+        color: {COLORS['cherry_rose']} !important;
+    }}
+    
+    [role="option"] {{
+        color: {COLORS['night_bordeaux']} !important;
+        background-color: {COLORS['white']} !important;
+    }}
+    
+    [role="option"]:hover {{
+        background-color: {COLORS['lavender_blush']} !important;
+        color: {COLORS['cherry_rose']} !important;
+    }}
+    
     .stFileUploader {{
         background: {COLORS['white']};
     }}
@@ -421,7 +503,9 @@ def show_header():
     else:
         st.markdown(f"""
             <div class='header'>
-                <div style='width: 100px; height: 100px; border-radius: 16px; background: linear-gradient(135deg, {COLORS['rosewood']} 0%, {COLORS['bubblegum_pink']} 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem; border: 4px solid white;'>🍷</div>
+                <div style='width: 100px; height: 100px; border-radius: 16px; background: linear-gradient(135deg, {COLORS['rosewood']} 0%, {COLORS['bubblegum_pink']} 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem; border: 4px solid white;'>
+                    <span class='material-icons' style='font-size: 4rem; color: white;'>wine_bar</span>
+                </div>
                 <div class='header-content'>
                     <h1 class='header-title'>Wine Quality Classification</h1>
                     <p class='header-subtitle'>Premium Machine Learning Prediction System</p>
@@ -432,12 +516,12 @@ def show_header():
 # Top Navigation with Tabs
 show_header()
 
-tab1, tab2 = st.tabs(["🚀 Predict", "📚 Know More"])
+tab1, tab2 = st.tabs(["Predict", "Know More"])
 
 # ==================== TAB 1: PREDICT ====================
 with tab1:
     
-    st.markdown(f"<div class='section-title'>Upload & Predict</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='section-title'><span class='material-icons' style='vertical-align: middle; font-size: 28px; margin-right: 10px; color: {COLORS['cherry_rose']};'>upload_file</span>Upload & Predict</div>", unsafe_allow_html=True)
     
     # Upload container - Compact design
     st.markdown(f"""
@@ -468,8 +552,6 @@ with tab1:
     if uploaded_file is not None:
         data = pd.read_csv(uploaded_file)
         has_target = "target" in data.columns
-        
-        # Custom styled button
         st.markdown(f"""
         <style>
         .predict-button-container {{
@@ -490,9 +572,9 @@ with tab1:
         <div class="predict-button-container">
         """, unsafe_allow_html=True)
         
-        if st.button("🚀 Predict Now", use_container_width=True, key="predict_btn", help="Click to predict wine quality"):
+        if st.button("Predict Now", use_container_width=True, key="predict_btn", help="Click to predict wine quality"):
                 with st.spinner('🔄 Processing your data...'):
-                    time.sleep(0.5)
+                    time.sleep(3)
                     
                     model = models[model_name]
                     X = data.copy()
@@ -520,7 +602,21 @@ with tab1:
                 st.session_state.data = data
 
         if not has_target:
-            st.markdown(f"<div class='warning-message'>ℹ️ No 'target' column detected. You'll see predictions without evaluation metrics.</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='warning-message'><span class='material-icons' style='vertical-align: middle; margin-right: 8px; font-size: 20px;'>info</span>No 'target' column detected. You'll see predictions without evaluation metrics.</div>", unsafe_allow_html=True)
+    else:
+        # Clear session state when file is removed
+        if "results_df" in st.session_state:
+            del st.session_state.results_df
+        if "y_pred" in st.session_state:
+            del st.session_state.y_pred
+        if "y_prob" in st.session_state:
+            del st.session_state.y_prob
+        if "has_target" in st.session_state:
+            del st.session_state.has_target
+        if "model_name" in st.session_state:
+            del st.session_state.model_name
+        if "data" in st.session_state:
+            del st.session_state.data
     
     # Show results if they exist
     if "results_df" in st.session_state:
@@ -534,7 +630,11 @@ with tab1:
         st.markdown(f"<div class='success-message'>✅ Prediction completed with <b>{model_name}</b>!</div>", unsafe_allow_html=True)
         
         # Results tabs
-        res_tab1, res_tab2, res_tab3 = st.tabs(["📋 Results", "📊 Summary", "📥 Download"])
+        res_tab1, res_tab2, res_tab3 = st.tabs([
+            "Results",
+            "Summary",
+            "Download"
+        ])
         
         with res_tab1:
             st.dataframe(results_df, use_container_width=True, height=350)
@@ -549,7 +649,7 @@ with tab1:
             with stat_col1:
                 st.markdown(f"""
                 <div class='metric-card'>
-                    <div class='metric-label'>🔴 Bad Wines</div>
+                    <div class='metric-label'><span class='material-icons' style='font-size: 20px; margin-right: 5px; vertical-align: middle; color: #c41e3a;'>cancel</span>Bad Wines</div>
                     <div class='metric-value'>{bad_count}</div>
                     <div class='metric-subtext'>{bad_count/len(results_df)*100:.1f}%</div>
                 </div>
@@ -558,7 +658,7 @@ with tab1:
             with stat_col2:
                 st.markdown(f"""
                 <div class='metric-card'>
-                    <div class='metric-label'>🟢 Good Wines</div>
+                    <div class='metric-label'><span class='material-icons' style='font-size: 20px; margin-right: 5px; vertical-align: middle; color: #28a745;'>check_circle</span>Good Wines</div>
                     <div class='metric-value'>{good_count}</div>
                     <div class='metric-subtext'>{good_count/len(results_df)*100:.1f}%</div>
                 </div>
@@ -567,7 +667,7 @@ with tab1:
             with stat_col3:
                 st.markdown(f"""
                 <div class='metric-card-light'>
-                    <div class='metric-label'>📈 Confidence</div>
+                    <div class='metric-label'><span class='material-icons' style='font-size: 20px; margin-right: 5px; vertical-align: middle; color: {COLORS["night_bordeaux"]};'>trending_up</span>Confidence</div>
                     <div class='metric-value' style='color: {COLORS["night_bordeaux"]};'>{avg_prob:.2%}</div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -575,7 +675,7 @@ with tab1:
         with res_tab3:
             csv = results_df.to_csv(index=False)
             st.download_button(
-                "📥 Download Predictions as CSV",
+                "Download Predictions as CSV",
                 csv,
                 f"wine_predictions_{model_name.replace(' ', '_')}.csv",
                 "text/csv",
@@ -584,7 +684,7 @@ with tab1:
 
         # Evaluation metrics
         if has_target:
-            st.markdown(f"<h2 class='section-title' style='margin-top: 35px;'>Performance Metrics</h2>", unsafe_allow_html=True)
+            st.markdown(f"<h2 class='section-title' style='margin-top: 35px;'><span class='material-icons' style='vertical-align: middle; font-size: 32px; margin-right: 10px; color: {COLORS['cherry_rose']};'>assessment</span>Performance Metrics</h2>", unsafe_allow_html=True)
             
             y_true = data["target"]
             
@@ -652,7 +752,7 @@ with tab1:
                 """, unsafe_allow_html=True)
 
             # Confusion Matrix and Report
-            st.markdown(f"<h2 class='section-title' style='margin-top: 35px;'>Detailed Analysis</h2>", unsafe_allow_html=True)
+            st.markdown(f"<h2 class='section-title' style='margin-top: 35px;'><span class='material-icons' style='vertical-align: middle; font-size: 32px; margin-right: 10px; color: {COLORS['cherry_rose']};'>analytics</span>Detailed Analysis</h2>", unsafe_allow_html=True)
             
             cm_col, report_col = st.columns([0.5, 1.2], gap="large")
             
@@ -685,14 +785,14 @@ with tab1:
 # ==================== TAB 2: KNOW MORE ====================
 with tab2:
     
-    st.markdown(f"<h2 class='section-title'>How to Use</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 class='section-title'><span class='material-icons' style='vertical-align: middle; font-size: 32px; margin-right: 10px; color: {COLORS['cherry_rose']};'>help</span>How to Use</h2>", unsafe_allow_html=True)
     
     guide_col1, guide_col2 = st.columns(2, gap="large")
     
     with guide_col1:
         st.markdown(f"""
         <div class='material-card'>
-            <div class='card-icon'>📤</div>
+            <div class='card-icon'><span class='material-icons' style='font-size: 3.5rem;'>upload</span></div>
             <div class='card-title'>Step 1: Prepare Data</div>
             <div class='card-description'>
             Create a CSV file with wine features. Include a 'target' column for evaluation (1=Good, 0=Bad).
@@ -703,7 +803,7 @@ with tab2:
     with guide_col2:
         st.markdown(f"""
         <div class='material-card'>
-            <div class='card-icon'>📁</div>
+            <div class='card-icon'><span class='material-icons' style='font-size: 3.5rem;'>folder</span></div>
             <div class='card-title'>Step 2: Upload File</div>
             <div class='card-description'>
             Go to the 'Predict' tab and upload your CSV file using the file uploader.
@@ -716,7 +816,7 @@ with tab2:
     with guide_col3:
         st.markdown(f"""
         <div class='material-card'>
-            <div class='card-icon'>🤖</div>
+            <div class='card-icon'><span class='material-icons' style='font-size: 3.5rem;'>smart_toy</span></div>
             <div class='card-title'>Step 3: Select Model</div>
             <div class='card-description'>
             Choose from 6 machine learning models. Each has different strengths and performance characteristics.
@@ -727,7 +827,7 @@ with tab2:
     with guide_col4:
         st.markdown(f"""
         <div class='material-card'>
-            <div class='card-icon'>📊</div>
+            <div class='card-icon'><span class='material-icons' style='font-size: 3.5rem;'>show_chart</span></div>
             <div class='card-title'>Step 4: View Results</div>
             <div class='card-description'>
             Get predictions, detailed metrics, confusion matrix, and classification reports.
@@ -742,7 +842,7 @@ with tab2:
     with col1:
         st.markdown(f"""
         <div class='material-card'>
-            <div class='card-icon'>🔵</div>
+            <div class='card-icon'><span class='material-icons' style='font-size: 3.5rem;'>fiber_manual_record</span></div>
             <div class='card-title'>Logistic Regression</div>
             <div class='card-description'>Fast linear classification model. Best for quick predictions and baseline comparisons.</div>
         </div>
@@ -751,7 +851,7 @@ with tab2:
     with col2:
         st.markdown(f"""
         <div class='material-card'>
-            <div class='card-icon'>🌳</div>
+            <div class='card-icon'><span class='material-icons' style='font-size: 3.5rem;'>nature</span></div>
             <div class='card-title'>Decision Tree</div>
             <div class='card-description'>Interpretable tree-based model. Good for understanding decision patterns.</div>
         </div>
@@ -760,7 +860,7 @@ with tab2:
     with col3:
         st.markdown(f"""
         <div class='material-card'>
-            <div class='card-icon'>👥</div>
+            <div class='card-icon'><span class='material-icons' style='font-size: 3.5rem;'>group</span></div>
             <div class='card-title'>K-Nearest Neighbors</div>
             <div class='card-description'>Instance-based learning. Works well with similar data points.</div>
         </div>
@@ -771,7 +871,7 @@ with tab2:
     with col4:
         st.markdown(f"""
         <div class='material-card'>
-            <div class='card-icon'>🎲</div>
+            <div class='card-icon'><span class='material-icons' style='font-size: 3.5rem;'>casino</span></div>
             <div class='card-title'>Naive Bayes</div>
             <div class='card-description'>Probabilistic model. Fast training and prediction.</div>
         </div>
@@ -780,7 +880,7 @@ with tab2:
     with col5:
         st.markdown(f"""
         <div class='material-card'>
-            <div class='card-icon'>🌲</div>
+            <div class='card-icon'><span class='material-icons' style='font-size: 3.5rem;'>parks</span></div>
             <div class='card-title'>Random Forest</div>
             <div class='card-description'>Ensemble of trees. Robust and handles non-linear patterns.</div>
         </div>
@@ -789,7 +889,7 @@ with tab2:
     with col6:
         st.markdown(f"""
         <div class='material-card'>
-            <div class='card-icon'>⚡</div>
+            <div class='card-icon'><span class='material-icons' style='font-size: 3.5rem;'>flash_on</span></div>
             <div class='card-title'>XGBoost</div>
             <div class='card-description'>Gradient boosting. Highest accuracy and complex pattern detection.</div>
         </div>
@@ -802,7 +902,7 @@ with tab2:
     with about_col1:
         st.markdown(f"""
         <div class='material-card'>
-            <div class='card-icon'>🍷</div>
+            <div class='card-icon'><span class='material-icons' style='font-size: 3.5rem;'>local_bar</span></div>
             <div class='card-title'>What is Quality Score?</div>
             <div class='card-description'>
             Wine quality is rated on a scale of 0-10 based on sensory evaluation by experts. In this app, we classify wines as:
@@ -815,7 +915,7 @@ with tab2:
     with about_col2:
         st.markdown(f"""
         <div class='material-card'>
-            <div class='card-icon'>📈</div>
+            <div class='card-icon'><span class='material-icons' style='font-size: 3.5rem;'>trending_up</span></div>
             <div class='card-title'>Key Metrics Explained</div>
             <div class='card-description'>
             <b>Accuracy:</b> Overall correctness
@@ -830,7 +930,7 @@ with tab2:
     
     st.markdown(f"""
     <div class='material-card'>
-        <div class='card-title'>Wine Physicochemical Properties</div>
+        <div class='card-title'><span class='material-icons' style='vertical-align: middle; margin-right: 10px;'>science</span>Wine Physicochemical Properties</div>
         <div class='card-description'>
         <b>Acidity Measures:</b> Fixed acidity, volatile acidity, citric acid
         <br><br>
@@ -848,7 +948,7 @@ with tab2:
     # Footer
     st.markdown(f"""
         <div class='footer'>
-            <div class='footer-title'>🍷 Wine Quality Classification System</div>
+            <div class='footer-title'><span class='material-icons' style='vertical-align: middle; margin-right: 10px;'>local_bar</span>Wine Quality Classification System</div>
             <div class='footer-subtitle'>Developed by Anandhalakshmi</div>
             <p style='margin-top: 12px; color: {COLORS['text_light']};'>
             Advanced Machine Learning Solution for Wine Quality Prediction<br>

@@ -100,11 +100,11 @@ After training, the fitted models and preprocessing scaler were serialized using
 
 ---
 
-## 8. Streamlit Web Application  ✅ *(4 Marks)*
+## 8. Streamlit Web Application
 
 The deployed Streamlit application includes the following features:
 
-* **CSV dataset upload option** (test data only)
+* **CSV dataset upload option** (test data only present in gihub test_Data folder to download and test.)
 * **Model selection dropdown** for all six models
 * **Display of evaluation metrics** (when ground truth is provided)
 * **Confusion matrix visualization**
@@ -128,6 +128,8 @@ project-folder/
 │-- app.py
 │-- requirements.txt
 │-- README.md
+|-- test_data
+|   |-- wine_test_data.csv
 │-- model/
 │   │-- Wine_Quality_Training.ipynb
 │   │-- logistic_model.pkl
