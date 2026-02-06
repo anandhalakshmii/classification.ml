@@ -36,7 +36,7 @@ The `quality` column was removed after creating the binary target to avoid data 
 
 ---
 
-## 3. Machine Learning Models and Evaluation  ✅ *(6 Marks)*
+## 3. Machine Learning Models and Evaluation  
 
 All models were trained and evaluated on the **same dataset** using an **80–20 stratified train–test split**.
 Feature scaling using **StandardScaler** was applied where required.
@@ -80,7 +80,7 @@ For each model, the following evaluation metrics were calculated:
 
 ---
 
-## 6. Model Performance Observations  ✅ *(3 Marks)*
+## 6. Model Performance Observations
 
 | ML Model Name       | Observation about Model Performance                                                               |
 | ------------------- | ------------------------------------------------------------------------------------------------- |
@@ -111,7 +111,7 @@ The deployed Streamlit application includes the following features:
 
 ### Live Application Link
 
-👉 **[Paste your Streamlit App Link here]**
+👉 **[https://classificationml-2025aa05683.streamlit.app/]**
 
 ---
 
@@ -119,7 +119,7 @@ The deployed Streamlit application includes the following features:
 
 The complete source code, trained models, and documentation are available at:
 
-👉 **[Paste your GitHub Repository Link here]**
+👉 **[https://github.com/anandhalakshmii/classification.ml]**
 
 ### Repository Structure
 
